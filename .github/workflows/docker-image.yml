@@ -39,4 +39,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: testappittv/java-app:1.0.0
+        tags: "testappittv/java-app:${{steps.bump.outputs.version}}"
