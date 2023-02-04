@@ -9,6 +9,7 @@
 *.war
 *.ear
 *.zip
+.git
 
 # Eclipse #
 /.project
