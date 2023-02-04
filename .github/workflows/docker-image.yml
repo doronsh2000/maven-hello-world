@@ -37,6 +37,6 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
-        context: myapp/
+        context: .
         push: true
         tags: testappittv/java-app:1.0.0
