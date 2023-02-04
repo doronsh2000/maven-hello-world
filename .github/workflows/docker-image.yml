@@ -14,5 +14,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Bump Version
+      id: bump
+      uses: nnichols/maven-version-bump-action@v3
+      with:
+        github-token: ${{ secrets.github_token }}
+        pom-path: myapp
+
+    - name: Print Version
+      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+
     - name: Build the Docker image
       run: cd myapp;docker build . --file Dockerfile --tag myapp:$(date +%s)
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        push: true
+        tags: testappittv/java-app:1.0.0
